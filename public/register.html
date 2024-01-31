@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha384-e3nCOO1ZlznqV8wnD4y36S1wFz/ptU3evEluhIMDl1tb9Ohx9YkrmopHAIl5gUts"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://www.zee5.com/images/ZEE5_logo.svg?ver=4.0.17"
+    />
+    <title>Zee5 Clone</title>
+    <style>
+      /* Additional styles for h2 */
+      h2 {
+        font-family: NotoSansBold, sans-serif;
+        font-size: 2.8rem;
+        font-weight: 700;
+        line-height: 1.5em;
+        color: #333;
+        display: block !important;
+        padding: 0 0 8px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .loginInfo {
+        font-family: NotoSansMedium, sans-serif;
+        font-size: 1.2rem;
+        font-weight: 500;
+        line-height: 1.375em;
+        padding: 0 16px 32px;
+        color: #4f4f4f;
+        text-align: center;
+        width: auto;
+      }
+
+      /* Additional styles for social media icons */
+      .social-icons {
+        display: flex;
+        justify-content: space-evenly;
+        margin: 0 20px 24px;
+      }
+
+      .social-icons i {
+        font-size: 2.5rem;
+        color: #333;
+        transition: color 0.3s ease-in-out;
+      }
+
+      .social-icons i:hover {
+        color: #007bff;
+      }
+      .labelDesign {
+        text-align: center;
+        margin-top: 16px;
+        position: relative;
+      }
+
+      .loginhrCirclePasswordless,
+      .loginhrCircleLoginIn {
+        width: 46px;
+        height: 46px;
+        border: 1px solid #cdcdcd;
+        border-radius: 19px;
+        background-color: #f9f9f9; /* Adjust the background color as needed */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+      }
+
+      .spanLoginIn {
+        color: #000;
+        font-family: NotoSansMedium, sans-serif;
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 1em;
+        text-transform: lowercase;
+      }
+
+      .loginhrCirclePasswordless:before,
+      .loginhrCircleLoginIn:before,
+      .loginhrCirclePasswordless:after,
+      .loginhrCircleLoginIn:after {
+        content: "";
+        display: block;
+        height: 0.1em;
+        background: #cdcdcd; /* Adjust the background color as needed */
+        border: none;
+        position: absolute;
+        top: 52%;
+        width: 152px;
+      }
+
+      .loginhrCirclePasswordless:before,
+      .loginhrCircleLoginIn:before {
+        left: 230px;
+      }
+
+      .loginhrCirclePasswordless:after,
+      .loginhrCircleLoginIn:after {
+        right: 230px;
+      }
+      .loginInBtn {
+        font-family: NotoSansBold, sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        height: 48px;
+        line-height: 1.375em;
+        padding: 12px 24px;
+      }
+    </style>
+  </head>
+  <body class="flex items-center justify-center h-screen">
+    <main class="bg-white p-8 rounded-lg shadow-md max-w-md">
+      <h2 class="text-2xl font-semibold mb-4 text-center">
+        Create a new account
+      </h2>
+      <div class="text-center loginInfo">
+        Create an account to continue enjoying uninterrupted video and
+        personalised experience
+      </div>
+      <div class="social-icons">
+        <i class="fa-brands fa-google"></i>
+        <i class="fab fa-facebook"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fa-brands fa-apple"></i>
+      </div>
+      <div class="labelDesign">
+        <div class="loginhrCirclePasswordless loginhrCircleLoginIn">
+          <div class="OrDiv">
+            <span class="spanLoginIn">or</span>
+          </div>
+        </div>
+      </div>
+      <form
+        class="space-y-4 mt-8"
+        action="/register"
+        method="post"
+        id="registerForm"
+      >
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="w-full border rounded-md focus:outline-none focus:border-blue-500"
+          placeholder="Enter Email ID"
+        />
+        <button
+          type="submit"
+          class="w-full bg-purple-600 bg-opacity-50 text-white p-2 rounded-md hover:bg-blue-600 transition duration-300 loginInBtn"
+        >
+          Create Account
+        </button>
+      </form>
+      <p class="mt-5 text-black text-base font-medium leadin-snug text-center">
+        Already registered?
+        <a href="./signin.html" class="text-purple-800">Login</a>
+      </p>
+    </main>
+    <script
+      src="https://kit.fontawesome.com/7563f2a69a.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("registerForm");
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const formData = new FormData(form);
+          const url = "/register"; // assuming your server is configured to handle this endpoint
+
+          try {
+            const response = await fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(Object.fromEntries(formData)),
+            });
+
+            const data = await response.json();
+            alert(data.message);
+          } catch (error) {
+            console.error("Error:", error);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

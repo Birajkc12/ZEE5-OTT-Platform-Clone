@@ -24,56 +24,129 @@
       href="https://www.zee5.com/images/ZEE5_logo.svg?ver=4.0.17"
     />
     <title>Zee5 Clone</title>
+    <style>
+      .profile-container {
+        position: relative;
+        margin-right: 20px; /* Adjust the margin as needed */
+      }
+
+      .profile-icon-btn {
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.3s ease;
+      }
+
+      .profile-icon-btn:hover {
+        background-color: #555; /* Change the color on hover as desired */
+      }
+
+      .fa-user-circle {
+        margin-right: 0.5rem;
+        font-size: 1.5rem;
+      }
+
+      #profileText {
+        font-weight: bold;
+        margin-right: 0.5rem;
+      }
+
+      .profile-options {
+        z-index: 1000;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #0f0617;
+        color: white;
+        border: 1px solid white;
+        padding: 1rem;
+        display: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+        width: 250px;
+        border-radius: 10px;
+        margin-top: 50px;
+      }
+
+      .profile-options p {
+        margin-bottom: 1rem;
+        font-weight: bold;
+      }
+
+      .profile-options a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+        transition: color 0.3s ease;
+        padding: 10px;
+      }
+
+      .profile-options a:hover {
+        color: #8ed1fc; /* Change the color on hover as desired */
+      }
+    </style>
   </head>
   <body class="container mx-auto">
-    <header>
-      <div class="logo">
-        <img
-          src="https://www.zee5.com/images/ZEE5_logo.svg?ver=4.0.17"
-          alt="Zee5 Logo"
-        />
+    <header class="py-5">
+      <div class="flex items-center justify-between gap-8">
+        <div class="logo">
+          <img
+            src="https://www.zee5.com/images/ZEE5_logo.svg?ver=4.0.17"
+            alt="Zee5 Logo"
+          />
+        </div>
+        <nav>
+          <ul>
+            <li class="active">Home</li>
+            <li>Exclusives</li>
+            <li>TV Shows</li>
+            <li>Movies</li>
+            <li>Rent</li>
+            <li>Cricket</li>
+            <li>
+              Videos
+              <ul class="dropdown">
+                <li>Live TV</li>
+                <li>Web series</li>
+                <li>Channels</li>
+                <li>Musics</li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <nav>
-        <ul>
-          <li class="active">Home</li>
-          <li>Exclusives</li>
-          <li>TV Shows</li>
-          <li>Movies</li>
-          <li>Rent</li>
-          <li>Cricket</li>
-          <li>
-            Videos
-            <ul class="dropdown">
-              <li>Live TV</li>
-              <li>Web series</li>
-              <li>Channels</li>
-              <li>Musics</li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-      <div class="search-icon" onclick="toggleSearchBar()">
-        <i class="fas fa-search"></i>
-      </div>
-      <div class="search-bar">
-        <input type="text" placeholder="Search..." />
-      </div>
-      <div class="user-options">
-        <button class="login-btn">
-          <a href="./signin.html" style="text-decoration: none; color: inherit"
-            >Login</a
-          >
-        </button>
 
-        <button class="register-btn">
-          <a
-            href="./register.html"
-            style="text-decoration: none; color: inherit"
-            >Register</a
-          >
-        </button>
-        <button class="subscribe-btn">Subscribe</button>
+      <div class="flex justify-between items-center">
+        <div class="search-icon mr-5" onclick="toggleSearchBar()">
+          <i class="fas fa-search"></i>
+        </div>
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." />
+        </div>
+        <div class="user-options" id="userOptions">
+          <button class="login-btn">
+            <a
+              href="./signin.html"
+              style="text-decoration: none; color: inherit"
+              >Login</a
+            >
+          </button>
+
+          <button class="register-btn">
+            <a
+              href="./register.html"
+              style="text-decoration: none; color: inherit"
+              >Register</a
+            >
+          </button>
+          <button class="subscribe-btn">Subscribe</button>
+        </div>
       </div>
+
       <div class="hamburger-menu" onclick="toggleMenu()">
         <div class="bar"></div>
         <div class="bar"></div>
@@ -247,12 +320,73 @@
         </div>
       </section>
     </main>
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script
       src="https://kit.fontawesome.com/7563f2a69a.js"
       crossorigin="anonymous"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <script>
+      function toggleProfileOptions() {
+        const profileOptions = document.getElementById("profileOptions");
+        profileOptions.style.display =
+          profileOptions.style.display === "none" ? "block" : "none";
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const userOptions = document.getElementById("userOptions");
+
+        const userData = localStorage.getItem("user");
+
+        if (userData) {
+          const user = JSON.parse(userData);
+          const userProfileHTML = `
+            <div class="profile-container">
+                <button class="profile-icon-btn" onclick="toggleProfileOptions()">
+                    <i class="fa fa-user-circle"></i>
+                    <span id="profileText">My Profile</span>
+                </button>
+                <div class="profile-options" id="profileOptions" style="display: none;">
+                    <p>${user.email}</p>
+                    <a href="#" onclick="toggleDropdown()">My Account</a>
+                    <ul class="dropdown" id="accountDropdown" style="display: none;">
+                        <li><a href="#">My Watchlist</a></li>
+                        <li><a href="#">My Subscription</a></li>
+                        <li><a href="#">My Rentals</a></li>
+                        <li><a href="#">My Transactions</a></li>
+                        <li><a href="#" onclick="logout()">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        `;
+          userOptions.innerHTML = userProfileHTML;
+        } else {
+          const defaultOptionsHTML = `
+            <button class="login-btn">
+                <a href="./signin.html" style="text-decoration: none; color: inherit">Login</a>
+            </button>
+            <button class="register-btn">
+                <a href="./register.html" style="text-decoration: none; color: inherit">Register</a>
+            </button>
+            <button class="subscribe-btn">Subscribe</button>
+        `;
+          userOptions.innerHTML = defaultOptionsHTML;
+        }
+      });
+
+      function toggleDropdown() {
+        const accountDropdown = document.getElementById("accountDropdown");
+        accountDropdown.style.display =
+          accountDropdown.style.display === "none" ? "block" : "none";
+      }
+
+      function logout() {
+        // Clear user data from localStorage
+        localStorage.removeItem("user");
+        // Redirect to the home page or login page
+        window.location.href = "./index.html";
+      }
+    </script>
   </body>
 </html>

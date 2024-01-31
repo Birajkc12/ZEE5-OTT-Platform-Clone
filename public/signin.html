@@ -54,6 +54,7 @@
         display: flex;
         justify-content: space-evenly;
         margin: 0 20px 24px;
+        cursor: pointer;
       }
 
       .social-icons i {
@@ -195,8 +196,12 @@
             }
 
             const data = await response.json();
-            // Display success popup
-            alert("Sign-in successful!\nWelcome, " + data.user.email);
+
+            // Store user information in localStorage
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            // Redirect to the home page
+            window.location.href = "index.html";
           } catch (error) {
             // Display different popups based on error
             if (error.message.includes("404")) {

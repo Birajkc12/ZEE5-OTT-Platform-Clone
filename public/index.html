@@ -89,15 +89,28 @@
         color: #8ed1fc; /* Change the color on hover as desired */
       }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
+    />
   </head>
+
   <body class="container mx-auto">
     <header class="py-5">
       <div class="flex items-center justify-between gap-8">
         <div class="logo">
-          <img
-            src="https://www.zee5.com/images/ZEE5_logo.svg?ver=4.0.17"
-            alt="Zee5 Logo"
-          />
+          <a href="./index.html"
+            ><img
+              src="https://www.zee5.com/images/ZEE5_logo.svg?ver=4.0.17"
+              alt="Zee5 Logo"
+          /></a>
         </div>
         <nav>
           <ul>
@@ -319,7 +332,21 @@
           </button>
         </div>
       </section>
+      <!-- Movie Carousel Section -->
+      <section class="mb-8">
+        <!-- New Trending Movies Section -->
+        <div class="trending-section">
+          <h2 class="text-2xl font-bold mb-4 text-white">Trending Movies</h2>
+          <div class="slick-carousel" id="trendingMoviesContainer">
+            <!-- Trending movies will be dynamically added here -->
+          </div>
+        </div>
+      </section>
     </main>
+    <!-- Include Footer Component -->
+    <div id="footerContainer" class="mt-8">
+      <!-- Add this container to include the footer component -->
+    </div>
     <script src="./script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script
@@ -327,6 +354,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script>
       function toggleProfileOptions() {
         const profileOptions = document.getElementById("profileOptions");
@@ -387,6 +416,13 @@
         // Redirect to the home page or login page
         window.location.href = "./index.html";
       }
+    </script>
+    <script src="./movie.js"></script>
+    <script>
+      // Fetch and append the footer component
+      $(document).ready(() => {
+        $("#footerContainer").load("footer.html");
+      });
     </script>
   </body>
 </html>
